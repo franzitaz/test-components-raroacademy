@@ -9,36 +9,36 @@ import { useValidatedField } from "../../hooks/useValidatedField";
 
 export const Cadastro = () => {
   const [statusEnvio, setStatusEnvio] = useState({ errored: false, mensagem: "" });
-  const nome = useValidatedField(campoObrigatorio('Nome'));
+  const name = useValidatedField(campoObrigatorio('Nome'));
   const email = useValidatedField(emailValido('E-mail'));
-  const codigoAcesso = useValidatedField(campoObrigatorio('Codigo Acesso'));
-  const senha = useValidatedField(senhaValida('Senha'));
+  const codeAccess = useValidatedField(campoObrigatorio('Codigo Acesso'));
+  const password = useValidatedField(senhaValida('Senha'));
   const validaConfirmacaoSenha = useCallback((value: string) => {
-    if (value !== senha.value) {
+    if (value !== password.value) {
       return ['Senhas não conferem'];
     }
 
     return [];
 
-  }, [senha.value]);
-  const confirmacaoSenha = useValidatedField(validaConfirmacaoSenha);
+  }, [password.value]);
+  const confirmPassword = useValidatedField(validaConfirmacaoSenha);
 
   const formValido = useMemo(() =>
-    nome.isValid &&
+    name.isValid &&
     email.isValid &&
-    codigoAcesso.isValid &&
-    senha.isValid &&
-    confirmacaoSenha.isValid
-  , [codigoAcesso.isValid, confirmacaoSenha.isValid, email.isValid, nome.isValid, senha.isValid]);
+    codeAccess.isValid &&
+    password.isValid &&
+    confirmPassword.isValid
+  , [codeAccess.isValid, confirmPassword.isValid, email.isValid, name.isValid, password.isValid]);
 
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const user = {
-      nome: nome.value,
+      name: name.value,
       email: email.value,
-      senha: senha.value,
-      codigoAcesso: codigoAcesso.value
+      password: password.value,
+      codeAccess: codeAccess.value
     };
 
     try {
@@ -73,7 +73,7 @@ export const Cadastro = () => {
                 name="nome"
                 placeholder="Nome"
                 type="text"
-                {...nome}
+                {...name}
               />
             </div>
 
@@ -93,7 +93,7 @@ export const Cadastro = () => {
                 name="senha"
                 placeholder="Senha"
                 type="password"
-                {...senha}
+                {...password}
               />
             </div>
 
@@ -103,7 +103,7 @@ export const Cadastro = () => {
                 name="confirmacaoSenha"
                 placeholder="Confirmação de Senha"
                 type="password"
-                {...confirmacaoSenha}
+                {...confirmPassword}
               />
             </div>
 
@@ -113,7 +113,7 @@ export const Cadastro = () => {
                 name="codigoAcesso"
                 placeholder="Código de Acesso"
                 type="text"
-                {...codigoAcesso}
+                {...codeAccess}
               />
             </div>
 
